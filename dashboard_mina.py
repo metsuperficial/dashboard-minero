@@ -17,7 +17,12 @@ st.caption("Recorrido 2D/3D, KPIs, estados operativos, alertas y detección de p
 # =========================
 @st.cache_data
 def cargar_datos():
-    df = pd.read_excel("data/vehicle_positions.xlsx")
+    df = pd.read_excel(
+        "data/vehicle_positions.xlsx",
+        dtype={"Vehiculo": str}
+    )
+
+    df["Vehiculo"] = df["Vehiculo"].str.strip()
     df["Tiempo"] = pd.to_datetime(df["Tiempo"], format="%H:%M:%S")
     df = df.sort_values(["Vehiculo", "Tiempo"]).reset_index(drop=True)
 
